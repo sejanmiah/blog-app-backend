@@ -6,12 +6,12 @@ import nodemailer from "nodemailer";
 // If your Prisma file is located elsewhere, you can change the path
 // import { PrismaClient } from "@/generated/prisma/client";
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
+  host: "smtp.gmail.com",
   port: 587,
   secure: false, // Use true for port 465, false for port 587
   auth: {
-    user: "maddison53@ethereal.email",
-    pass: "jn7jnAPss4f63QBp6D",
+    user: process.env.APP_USER,
+    pass: process.env.APP_PASS,
   },
 });
 
@@ -49,8 +49,15 @@ export const auth = betterAuth({
         requireEmailVerification: true
     }, 
     emailVerification: {
-        sendVerificationEmail: async ( { user, url, token }, request) => {
+            sendVerificationEmail: async ( { user, url, token }, request) => {
             console.log(`send email to ${user.email}`)
+            const info = await transporter.sendMail({
+            from: '"Prisma Blog App" <prisma@blog.com>',
+            to: "sejankhan931@gmail.com",
+            subject: "Hello ✔",
+            text: "Hello world?", // Plain-text version of the message
+            html: "<b>Hello world?</b>", // HTML version of the message
+        });
         },
     },
 });
