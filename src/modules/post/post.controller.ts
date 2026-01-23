@@ -5,9 +5,12 @@ import { Post } from "../../../generated/prisma/client";
 const createPost = async (req: Request, res: Response) => {
     // res.send("Create a new post")
     // console.log({req,res});
-    try{
+    try {
+        if (!req.user) {
+
+        }
         console.log(req.user)
-        const result = await postService.createPost(req.body)
+        const result = await postService.createPost(req.body, req.user?.id)
         res.status(201).json(result);
     } catch (error) {
         console.error("Error creating post:", error);
