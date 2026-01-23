@@ -6,11 +6,12 @@ const createPost = async (req: Request, res: Response) => {
     // res.send("Create a new post")
     // console.log({req,res});
     try {
-        if (!req.user) {
-
+        const user = req.user;
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized" });
         }
-        console.log(req.user)
-        const result = await postService.createPost(req.body, req.user?.id)
+        console.log(user)
+        const result = await postService.createPost(req.body, user.id)
         res.status(201).json(result);
     } catch (error) {
         console.error("Error creating post:", error);

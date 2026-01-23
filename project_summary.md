@@ -50,3 +50,17 @@ Authentication is managed by **Better Auth**, integrated directly into the Expre
 - **Blog Posts**: Create, read, update, delete, and manage posts with statuses (Draft/Published).
 - **Comments**: Threaded commenting system.
 - **User Management**: Authentication and roles (default "user").
+
+## 🛡️ Middleware
+
+### Authentication (`src/middleware/auth.ts`)
+- **`auth`**: Custom middleware wrapping Better Auth.
+    - verifying session existence.
+    - verifying email verification status.
+    - Attaches `user` object to `req` (id, email, name, role).
+    - Supports Role-Based Access Control (RBAC) with `UserRole` (USER, ADMIN).
+
+## 🔄 Recent Updates
+- **`Post` Module**:
+    - `createPost` is now secured with `auth(UserRole.USER, UserRole.ADMIN)`.
+    - Automatically assigns `userId` from the authenticated session to the post.
