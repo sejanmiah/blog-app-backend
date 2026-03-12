@@ -15,6 +15,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Verify connection configuration
+transporter.verify(function (error, success) {
+  if (error) {
+    console.error("SMTP Connection Error Details:", {
+      error: error.message,
+      user: process.env.APP_USER ? "Defined" : "UNDEFINED",
+      pass: process.env.APP_PASS ? "Defined" : "UNDEFINED",
+    });
+  } else {
+    console.log("SMTP Server is ready to take our messages");
+  }
+});
+
 
 
 

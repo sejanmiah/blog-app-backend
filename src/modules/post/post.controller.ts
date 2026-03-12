@@ -3,8 +3,6 @@ import { postService } from "./post.service";
 import { Post } from "../../../generated/prisma/client";
 
 const createPost = async (req: Request, res: Response) => {
-    // res.send("Create a new post")
-    // console.log({req,res});
     try {
         const user = req.user;
         if (!user) {

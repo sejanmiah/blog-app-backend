@@ -1,3 +1,5 @@
+import "dotenv/config";
+// Force reload: 1
 import app from "./app";
 import { prisma } from "./lib/prisma";
 
